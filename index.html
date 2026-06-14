@@ -6,19 +6,38 @@
         <title>Data Collector for AGOL</title>
 
                 <style>
-                     html, body {
-                         padding: 0;
+                     html, body, #viewDiv {
+                         width: 100vw;
+                         height: 100vh;
                          margin: 0;
-                         height: 100%;
+                         padding: 0;
+                         overflow: hidden;
+                     }
+                     html, body {
                          background: #fff;
                      }
-                     /* Narrow portrait map to match screenshot */
                      #viewDiv {
-                         width: 360px;
-                         height: 900px;
-                         margin: 20px auto;
+                         position: relative;
+                         box-sizing: border-box;
                          border: 6px solid #2f2f2f;
                          box-shadow: 0 0 0 6px #ffffff inset;
+                     }
+                     .addRecordBtn {
+                         position: absolute;
+                         z-index: 10;
+                         top: 10px;
+                         right: 10px;
+                         background-color: #0079c1;
+                         color: white;
+                         padding: 8px 16px;
+                         border: none;
+                         border-radius: 4px;
+                         font-size: 14px;
+                         cursor: pointer;
+                         text-decoration: none;
+                     }
+                     .addRecordBtn:hover {
+                         background-color: #005a87;
                      }
                 </style>
         <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
@@ -124,8 +143,6 @@
        </script>
         </head>
         <body>
-            
-            <div id="viewDiv"></div>
-        
-        </body>
-</html>
+            <div id="viewDiv">
+                <a href="https://arcg.is/01zHv12" target="_blank" class="addRecordBtn">Add Record</a>
+            </div>
