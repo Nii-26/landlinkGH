@@ -50,12 +50,17 @@
                     index: 0
                 });
 
-                // Create a FeatureLayer (replace the URL with your layer's URL)
-                const layer = new FeatureLayer({
-                    // url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_1911923b962544fdbe7db292e71500c2_results/FeatureServer"
-                });
-
-                map.add(layer);
+                // FeatureLayer: set your layer URL here. Leave empty to skip loading the layer.
+                const FEATURE_LAYER_URL = ""; // e.g. "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/your_layer/FeatureServer/0"
+                let layer = null;
+                if (FEATURE_LAYER_URL) {
+                    layer = new FeatureLayer({
+                        url: FEATURE_LAYER_URL
+                    });
+                    map.add(layer);
+                } else {
+                    console.warn("No FeatureLayer URL provided — skipping layer creation.");
+                }
 
                 // Create the Locate widget and add it to the view
                 const locateBtn = new Locate({
@@ -72,7 +77,7 @@
                     alert("Unable to find your location. Please check your phone's privacy settings or ensure your GPS signal is strong.");
                 });
 
-                // Catch errors when the layer fails to load
+                // Catch errors when the layer fails to load (only if a layer was created)
                 if (layer && layer.load) {
                     layer.load().catch((error) => {
                         console.error("FeatureLayer failed to load:", error);
