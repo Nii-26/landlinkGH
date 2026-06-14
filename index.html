@@ -5,21 +5,26 @@
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
         <title>Data Collector for AGOL</title>
 
-        <style>
-           html,
-           body,
-           #viewDiv {
-             padding: 0;
-             margin: 0;
-             height: 100vh;
-             width: 100vw;
-             overflow: hidden;
-           }
-        </style>
+                <style>
+                     html, body {
+                         padding: 0;
+                         margin: 0;
+                         height: 100%;
+                         background: #fff;
+                     }
+                     /* Narrow portrait map to match screenshot */
+                     #viewDiv {
+                         width: 360px;
+                         height: 900px;
+                         margin: 20px auto;
+                         border: 6px solid #2f2f2f;
+                         box-shadow: 0 0 0 6px #ffffff inset;
+                     }
+                </style>
         <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
         <script src="https://js.arcgis.com/4.26/"></script>
         <script>
-             require([ "esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Search", "esri/widgets/Expand", "esri/widgets/Locate", "esri/layers/FeatureLayer" ], (esriConfig, Map, MapView, Search, Expand, Locate, FeatureLayer) => {
+             require([ "esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Search", "esri/widgets/Expand", "esri/widgets/Locate", "esri/layers/FeatureLayer", "esri/widgets/ScaleBar", "esri/Graphic" ], (esriConfig, Map, MapView, Search, Expand, Locate, FeatureLayer, ScaleBar, Graphic) => {
 
                  esriConfig.apiKey = "AAPTaLCDzfLzcE5Q2HXKI5_Lgvw..CNjEP7VVPjEGnk4qt9aaPgofWZzD10GpMc_xR3LTu-ChHMQ4GR3VXQ2X8loGdzm2mEeJWS8Om1XeZV8LwBWGBmYanviwgXGVofIltQGuY8moQcu05esmUrEJVl7MKM7ELL52FcOY79wftH8756erm335H4nkNaBKv-pqW2Czr6xRR7JyOtJOVS1lnSjTuyXChRYJaybmoQHS3T6ml_GJ5LmPA-Pqz80SYJNZHJTp9fh0-wMyEd26t5TzF7Ogr1Hf7za2Rz3ZpM84YeEa52sY-w..AT1_bryZT1WS";
                 const map = new Map({
@@ -69,6 +74,36 @@
                 view.ui.add(locateBtn, {
                     position: "top-left",
                     index: 1
+                });
+
+                // Add a visible red point marker at the initial center
+                const point = {
+                    type: "point",
+                    longitude: -79.9763,
+                    latitude: 32.8382
+                };
+                const markerSymbol = {
+                    type: "simple-marker",
+                    color: "red",
+                    size: "12px",
+                    outline: {
+                        color: "#ffffff",
+                        width: 1
+                    }
+                };
+                const pointGraphic = new Graphic({
+                    geometry: point,
+                    symbol: markerSymbol
+                });
+                view.graphics.add(pointGraphic);
+
+                // Add a scale bar to match the screenshot layout
+                const scalebar = new ScaleBar({
+                    view: view,
+                    unit: "metric"
+                });
+                view.ui.add(scalebar, {
+                    position: "bottom-left"
                 });
 
                 // Listen for errors on the Locate button
