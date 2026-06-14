@@ -27,7 +27,7 @@
                          z-index: 10;
                          top: 10px;
                          right: 10px;
-                         background-color: #0079c1;
+                         background-color: #28a745;
                          color: white;
                          padding: 8px 16px;
                          border: none;
@@ -37,7 +37,26 @@
                          text-decoration: none;
                      }
                      .addRecordBtn:hover {
-                         background-color: #005a87;
+                         background-color: #1e7e34;
+                     }
+                     @media (min-width: 768px) and (max-width: 1024px) {
+                         html, body, #viewDiv {
+                             width: 100vw;
+                             height: 100vh;
+                             margin: 0;
+                             padding: 0;
+                             overflow: hidden;
+                         }
+                         #viewDiv {
+                             border-width: 4px;
+                             box-shadow: 0 0 0 4px #ffffff inset;
+                         }
+                         .addRecordBtn {
+                             top: 16px;
+                             right: 16px;
+                             padding: 10px 18px;
+                             font-size: 16px;
+                         }
                      }
                 </style>
         <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
