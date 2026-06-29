@@ -93,17 +93,27 @@
                     index: 0
                 });
 
-                // FeatureLayer: set your layer URL here. Leave empty to skip loading the layer.
-                const FEATURE_LAYER_URL = ""; // e.g. "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/your_layer/FeatureServer/0"
-                let layer = null;
-                if (FEATURE_LAYER_URL) {
-                    layer = new FeatureLayer({
-                        url: FEATURE_LAYER_URL
-                    });
-                    map.add(layer);
-                } else {
-                    console.warn("No FeatureLayer URL provided — skipping layer creation.");
-                }
+                // Parcel layer from a local GeoJSON file.
+                const parcelLayer = new FeatureLayer({
+                    url: "parcels.geojson",
+                    title: "Parcel Layer",
+                    renderer: {
+                        type: "simple",
+                        symbol: {
+                            type: "simple-fill",
+                            color: [76, 175, 80, 0.25],
+                            outline: {
+                                color: [0, 128, 0, 1],
+                                width: 1.5
+                            }
+                        }
+                    },
+                    popupTemplate: {
+                        title: "{parcel_id}",
+                        content: "Owner: {owner}"
+                    }
+                });
+                map.add(parcelLayer);
 
                 // Create the Locate widget and add it to the view
                 const locateBtn = new Locate({

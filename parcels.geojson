@@ -1,0 +1,43 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "P-001",
+        "owner": "Sample Parcel A"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-0.214, 5.602],
+            [-0.212, 5.602],
+            [-0.212, 5.606],
+            [-0.214, 5.606],
+            [-0.214, 5.602]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "P-002",
+        "owner": "Sample Parcel B"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-0.220, 5.596],
+            [-0.218, 5.596],
+            [-0.218, 5.600],
+            [-0.220, 5.600],
+            [-0.220, 5.596]
+          ]
+        ]
+      }
+    }
+  ]
+}
