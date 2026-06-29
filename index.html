@@ -62,7 +62,7 @@
         <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
         <script src="https://js.arcgis.com/4.26/"></script>
         <script>
-             require([ "esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Search", "esri/widgets/Expand", "esri/widgets/Locate", "esri/layers/GeoJSONLayer", "esri/widgets/ScaleBar", "esri/Graphic" ], (esriConfig, Map, MapView, Search, Expand, Locate, GeoJSONLayer, ScaleBar, Graphic) => {
+             require([ "esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Search", "esri/widgets/Search/SearchSource", "esri/widgets/Expand", "esri/widgets/Locate", "esri/layers/GeoJSONLayer", "esri/widgets/ScaleBar", "esri/Graphic" ], (esriConfig, Map, MapView, Search, SearchSource, Expand, Locate, GeoJSONLayer, ScaleBar, Graphic) => {
 
                  esriConfig.apiKey = "AAPTaLCDzfLzcE5Q2HXKI5_Lgvw..CNjEP7VVPjEGnk4qt9aaPgofWZzD10GpMc_xR3LTu-ChHMQ4GR3VXQ2X8loGdzm2mEeJWS8Om1XeZV8LwBWGBmYanviwgXGVofIltQGuY8moQcu05esmUrEJVl7MKM7ELL52FcOY79wftH8756erm335H4nkNaBKv-pqW2Czr6xRR7JyOtJOVS1lnSjTuyXChRYJaybmoQHS3T6ml_GJ5LmPA-Pqz80SYJNZHJTp9fh0-wMyEd26t5TzF7Ogr1Hf7za2Rz3ZpM84YeEa52sY-w..AT1_bryZT1WS";
                 const map = new Map({
@@ -73,24 +73,6 @@
                     map: map, // References the map object
                     center: [-0.205, 5.6037], // longitude, latitude (Accra, Ghana)
                     zoom: 12
-                });
-
-                // Create the Search widget
-                const searchWidget = new Search({
-                    view: view
-                });
-
-                // Wrap the search widget in the Expand widget
-                const searchExpand = new Expand({
-                    view: view,
-                    content: searchWidget,
-                    expandIcon: "search"
-                });
-
-                // Add the expand widget to the view
-                view.ui.add(searchExpand, {
-                    position: "top-left",
-                    index: 0
                 });
 
                 // Parcel layer from a local GeoJSON file.
@@ -124,6 +106,36 @@
                     if (view && parcelLayer.fullExtent) {
                         view.goTo(parcelLayer.fullExtent.expand(1.3));
                     }
+                });
+
+                // Create a parcel search source that searches by Parcel ID or Owner Name.
+                const parcelSearchSource = new SearchSource({
+                    layer: parcelLayer,
+                    searchFields: ["parcel_id", "owner"],
+                    displayField: "parcel_id",
+                    exactMatch: false,
+                    outFields: ["*"],
+                    name: "Parcels",
+                    placeholder: "Search parcel ID or owner"
+                });
+
+                // Create the Search widget and bind it to the parcel layer.
+                const searchWidget = new Search({
+                    view: view,
+                    sources: [parcelSearchSource]
+                });
+
+                // Wrap the search widget in the Expand widget
+                const searchExpand = new Expand({
+                    view: view,
+                    content: searchWidget,
+                    expandIcon: "search"
+                });
+
+                // Add the expand widget to the view
+                view.ui.add(searchExpand, {
+                    position: "top-left",
+                    index: 0
                 });
 
                 // Create the Locate widget and add it to the view
@@ -171,11 +183,11 @@
                     alert("Unable to find your location. Please check your phone's privacy settings or ensure your GPS signal is strong.");
                 });
 
-                // Catch errors when the layer fails to load (only if a layer was created)
-                if (layer && layer.load) {
-                    layer.load().catch((error) => {
-                        console.error("FeatureLayer failed to load:", error);
-                        alert("Notice: The survey data layer is temporarily unavailable. You can still add a record using the submission form.");
+                // Catch errors when the parcel layer fails to load.
+                if (parcelLayer && parcelLayer.load) {
+                    parcelLayer.load().catch((error) => {
+                        console.error("Parcel layer failed to load:", error);
+                        alert("Notice: The parcel layer is temporarily unavailable.");
                     });
                 }
 
