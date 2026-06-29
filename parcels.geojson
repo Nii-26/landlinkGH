@@ -3,77 +3,77 @@
   "features": [
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-001", "owner": "Sample Parcel 1", "neighborhood": "East Legon"},
+      "properties": {"parcel_id": "P-001", "owner": "Sample Parcel 1", "neighborhood": "East Legon", "parcel_size": "1.2 ha", "land_use": "Residential", "registration_date": "2020-04-12"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.1710, 5.6410], [-0.1695, 5.6410], [-0.1695, 5.6423], [-0.1710, 5.6423], [-0.1710, 5.6410]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-002", "owner": "Sample Parcel 2", "neighborhood": "Madina"},
+      "properties": {"parcel_id": "P-002", "owner": "Sample Parcel 2", "neighborhood": "Madina", "parcel_size": "0.8 ha", "land_use": "Commercial", "registration_date": "2021-07-24"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.1690, 5.6760], [-0.1675, 5.6760], [-0.1675, 5.6775], [-0.1690, 5.6775], [-0.1690, 5.6760]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-003", "owner": "Sample Parcel 3", "neighborhood": "Osu"},
+      "properties": {"parcel_id": "P-003", "owner": "Sample Parcel 3", "neighborhood": "Osu", "parcel_size": "0.6 ha", "land_use": "Mixed Use", "registration_date": "2019-11-03"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.1840, 5.5560], [-0.1825, 5.5560], [-0.1825, 5.5574], [-0.1840, 5.5574], [-0.1840, 5.5560]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-004", "owner": "Sample Parcel 4", "neighborhood": "Teshie"},
+      "properties": {"parcel_id": "P-004", "owner": "Sample Parcel 4", "neighborhood": "Teshie", "parcel_size": "1.5 ha", "land_use": "Residential", "registration_date": "2022-01-18"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.1060, 5.5860], [-0.1045, 5.5860], [-0.1045, 5.5875], [-0.1060, 5.5875], [-0.1060, 5.5860]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-005", "owner": "Sample Parcel 5", "neighborhood": "Airport Hills"},
+      "properties": {"parcel_id": "P-005", "owner": "Sample Parcel 5", "neighborhood": "Airport Hills", "parcel_size": "1.1 ha", "land_use": "Institutional", "registration_date": "2018-09-06"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.1920, 5.6030], [-0.1905, 5.6030], [-0.1905, 5.6046], [-0.1920, 5.6046], [-0.1920, 5.6030]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-006", "owner": "Sample Parcel 6", "neighborhood": "Cantonments"},
+      "properties": {"parcel_id": "P-006", "owner": "Sample Parcel 6", "neighborhood": "Cantonments", "parcel_size": "0.9 ha", "land_use": "Residential", "registration_date": "2023-05-29"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.1760, 5.5880], [-0.1745, 5.5880], [-0.1745, 5.5895], [-0.1760, 5.5895], [-0.1760, 5.5880]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-007", "owner": "Sample Parcel 7", "neighborhood": "Weija"},
+      "properties": {"parcel_id": "P-007", "owner": "Sample Parcel 7", "neighborhood": "Weija", "parcel_size": "2.0 ha", "land_use": "Agricultural", "registration_date": "2017-12-14"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.3450, 5.5620], [-0.3435, 5.5620], [-0.3435, 5.5635], [-0.3450, 5.5635], [-0.3450, 5.5620]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-008", "owner": "Sample Parcel 8", "neighborhood": "Kpone"},
+      "properties": {"parcel_id": "P-008", "owner": "Sample Parcel 8", "neighborhood": "Kpone", "parcel_size": "1.8 ha", "land_use": "Industrial", "registration_date": "2024-02-08"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.0680, 5.6870], [-0.0665, 5.6870], [-0.0665, 5.6885], [-0.0680, 5.6885], [-0.0680, 5.6870]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-009", "owner": "Sample Parcel 9", "neighborhood": "Ga West"},
+      "properties": {"parcel_id": "P-009", "owner": "Sample Parcel 9", "neighborhood": "Ga West", "parcel_size": "1.4 ha", "land_use": "Residential", "registration_date": "2020-10-01"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.3000, 5.7000], [-0.2985, 5.7000], [-0.2985, 5.7015], [-0.3000, 5.7015], [-0.3000, 5.7000]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-010", "owner": "Sample Parcel 10", "neighborhood": "Amasaman"},
+      "properties": {"parcel_id": "P-010", "owner": "Sample Parcel 10", "neighborhood": "Amasaman", "parcel_size": "3.2 ha", "land_use": "Agricultural", "registration_date": "2016-06-19"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.2920, 5.7050], [-0.2905, 5.7050], [-0.2905, 5.7065], [-0.2920, 5.7065], [-0.2920, 5.7050]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-011", "owner": "Sample Parcel 11", "neighborhood": "Shai-Osudoku"},
+      "properties": {"parcel_id": "P-011", "owner": "Sample Parcel 11", "neighborhood": "Shai-Osudoku", "parcel_size": "2.7 ha", "land_use": "Residential", "registration_date": "2021-03-15"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.0800, 5.8800], [-0.0785, 5.8800], [-0.0785, 5.8815], [-0.0800, 5.8815], [-0.0800, 5.8800]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-012", "owner": "Sample Parcel 12", "neighborhood": "Ada East"},
+      "properties": {"parcel_id": "P-012", "owner": "Sample Parcel 12", "neighborhood": "Ada East", "parcel_size": "4.1 ha", "land_use": "Agricultural", "registration_date": "2015-08-27"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.0400, 5.7900], [-0.0385, 5.7900], [-0.0385, 5.7915], [-0.0400, 5.7915], [-0.0400, 5.7900]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-013", "owner": "Sample Parcel 13", "neighborhood": "Ningo-Prampram"},
+      "properties": {"parcel_id": "P-013", "owner": "Sample Parcel 13", "neighborhood": "Ningo-Prampram", "parcel_size": "2.3 ha", "land_use": "Mixed Use", "registration_date": "2022-11-09"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.0400, 5.7300], [-0.0385, 5.7300], [-0.0385, 5.7315], [-0.0400, 5.7315], [-0.0400, 5.7300]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-014", "owner": "Sample Parcel 14", "neighborhood": "Tema"},
+      "properties": {"parcel_id": "P-014", "owner": "Sample Parcel 14", "neighborhood": "Tema", "parcel_size": "1.7 ha", "land_use": "Industrial", "registration_date": "2019-04-22"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.0100, 5.6500], [-0.0085, 5.6500], [-0.0085, 5.6515], [-0.0100, 5.6515], [-0.0100, 5.6500]]]}
     },
     {
       "type": "Feature",
-      "properties": {"parcel_id": "P-015", "owner": "Sample Parcel 15", "neighborhood": "Krowor"},
+      "properties": {"parcel_id": "P-015", "owner": "Sample Parcel 15", "neighborhood": "Krowor", "parcel_size": "1.0 ha", "land_use": "Residential", "registration_date": "2023-07-30"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.1500, 5.5600], [-0.1485, 5.5600], [-0.1485, 5.5615], [-0.1500, 5.5615], [-0.1500, 5.5600]]]}
     }
   ]

@@ -110,7 +110,12 @@
                     },
                     popupTemplate: {
                         title: "{parcel_id}",
-                        content: "Owner: {owner}<br/>Neighborhood: {neighborhood}"
+                        content: [
+                            {
+                                type: "text",
+                                text: "<b>Owner Name:</b> {owner}<br/><b>Parcel Size:</b> {parcel_size}<br/><b>Land Use:</b> {land_use}<br/><b>Registration Date:</b> {registration_date}"
+                            }
+                        ]
                     }
                 });
                 map.add(parcelLayer);
