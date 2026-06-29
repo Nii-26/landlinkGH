@@ -1,4 +1,4 @@
-# AGOLEntries
+# LandLinkGH
 
 A full-screen, mobile-first web mapping application.
 
