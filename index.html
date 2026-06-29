@@ -110,10 +110,16 @@
                     },
                     popupTemplate: {
                         title: "{parcel_id}",
-                        content: "Owner: {owner}"
+                        content: "Owner: {owner}<br/>Neighborhood: {neighborhood}"
                     }
                 });
                 map.add(parcelLayer);
+
+                parcelLayer.when(() => {
+                    if (view && parcelLayer.fullExtent) {
+                        view.goTo(parcelLayer.fullExtent.expand(1.3));
+                    }
+                });
 
                 // Create the Locate widget and add it to the view
                 const locateBtn = new Locate({

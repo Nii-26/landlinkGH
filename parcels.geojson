@@ -5,38 +5,108 @@
       "type": "Feature",
       "properties": {
         "parcel_id": "P-001",
-        "owner": "Sample Parcel A"
+        "owner": "Sample Parcel A",
+        "neighborhood": "East Legon"
       },
       "geometry": {
         "type": "Polygon",
-        "coordinates": [
-          [
-            [-0.214, 5.602],
-            [-0.212, 5.602],
-            [-0.212, 5.606],
-            [-0.214, 5.606],
-            [-0.214, 5.602]
-          ]
-        ]
+        "coordinates": [[
+          [-0.1710, 5.6410],
+          [-0.1695, 5.6410],
+          [-0.1695, 5.6423],
+          [-0.1710, 5.6423],
+          [-0.1710, 5.6410]
+        ]]
       }
     },
     {
       "type": "Feature",
       "properties": {
         "parcel_id": "P-002",
-        "owner": "Sample Parcel B"
+        "owner": "Sample Parcel B",
+        "neighborhood": "Madina"
       },
       "geometry": {
         "type": "Polygon",
-        "coordinates": [
-          [
-            [-0.220, 5.596],
-            [-0.218, 5.596],
-            [-0.218, 5.600],
-            [-0.220, 5.600],
-            [-0.220, 5.596]
-          ]
-        ]
+        "coordinates": [[
+          [-0.1690, 5.6760],
+          [-0.1675, 5.6760],
+          [-0.1675, 5.6775],
+          [-0.1690, 5.6775],
+          [-0.1690, 5.6760]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "P-003",
+        "owner": "Sample Parcel C",
+        "neighborhood": "Osu"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-0.1840, 5.5560],
+          [-0.1825, 5.5560],
+          [-0.1825, 5.5574],
+          [-0.1840, 5.5574],
+          [-0.1840, 5.5560]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "P-004",
+        "owner": "Sample Parcel D",
+        "neighborhood": "Teshie"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-0.1060, 5.5860],
+          [-0.1045, 5.5860],
+          [-0.1045, 5.5875],
+          [-0.1060, 5.5875],
+          [-0.1060, 5.5860]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "P-005",
+        "owner": "Sample Parcel E",
+        "neighborhood": "Airport Hills"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-0.1920, 5.6030],
+          [-0.1905, 5.6030],
+          [-0.1905, 5.6046],
+          [-0.1920, 5.6046],
+          [-0.1920, 5.6030]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "P-006",
+        "owner": "Sample Parcel F",
+        "neighborhood": "Cantonments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-0.1760, 5.5880],
+          [-0.1745, 5.5880],
+          [-0.1745, 5.5895],
+          [-0.1760, 5.5895],
+          [-0.1760, 5.5880]
+        ]]
       }
     }
   ]
