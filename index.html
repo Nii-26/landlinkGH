@@ -62,7 +62,7 @@
         <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
         <script src="https://js.arcgis.com/4.26/"></script>
         <script>
-             require([ "esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Search", "esri/widgets/Expand", "esri/widgets/Locate", "esri/layers/FeatureLayer", "esri/widgets/ScaleBar", "esri/Graphic" ], (esriConfig, Map, MapView, Search, Expand, Locate, FeatureLayer, ScaleBar, Graphic) => {
+             require([ "esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Search", "esri/widgets/Expand", "esri/widgets/Locate", "esri/layers/GeoJSONLayer", "esri/widgets/ScaleBar", "esri/Graphic" ], (esriConfig, Map, MapView, Search, Expand, Locate, GeoJSONLayer, ScaleBar, Graphic) => {
 
                  esriConfig.apiKey = "AAPTaLCDzfLzcE5Q2HXKI5_Lgvw..CNjEP7VVPjEGnk4qt9aaPgofWZzD10GpMc_xR3LTu-ChHMQ4GR3VXQ2X8loGdzm2mEeJWS8Om1XeZV8LwBWGBmYanviwgXGVofIltQGuY8moQcu05esmUrEJVl7MKM7ELL52FcOY79wftH8756erm335H4nkNaBKv-pqW2Czr6xRR7JyOtJOVS1lnSjTuyXChRYJaybmoQHS3T6ml_GJ5LmPA-Pqz80SYJNZHJTp9fh0-wMyEd26t5TzF7Ogr1Hf7za2Rz3ZpM84YeEa52sY-w..AT1_bryZT1WS";
                 const map = new Map({
@@ -94,8 +94,8 @@
                 });
 
                 // Parcel layer from a local GeoJSON file.
-                const parcelLayer = new FeatureLayer({
-                    url: "parcels.geojson",
+                const parcelLayer = new GeoJSONLayer({
+                    url: "./parcels.geojson",
                     title: "Parcel Layer",
                     renderer: {
                         type: "simple",
