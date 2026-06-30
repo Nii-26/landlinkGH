@@ -71,8 +71,8 @@
                 const view = new MapView({
                     container: "viewDiv", // Reference to the DOM node that will contain the view
                     map: map, // References the map object
-                    center: [-0.205, 5.6037], // longitude, latitude (Accra, Ghana)
-                    zoom: 15
+                    center: [-0.186, 5.586], // longitude, latitude tuned to match screenshot view
+                    zoom: 13.2
                 });
 
                 // Parcel layer from a local GeoJSON file.
@@ -102,11 +102,7 @@
                 });
                 map.add(parcelLayer);
 
-                parcelLayer.when(() => {
-                    if (view && parcelLayer.fullExtent) {
-                        view.goTo(parcelLayer.fullExtent.expand(1.08));
-                    }
-                });
+                // Keep startup zoom fixed to match the desired map opening view.
 
                 // Create a parcel search source that searches by Parcel ID or Owner Name.
                 const parcelSearchSource = new SearchSource({
