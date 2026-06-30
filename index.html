@@ -2,13 +2,13 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
         <title>LandlinkGH</title>
 
                 <style>
                      html, body, #viewDiv {
                          width: 100vw;
-                         height: 100vh;
+                         height: 100dvh;
                          margin: 0;
                          padding: 0;
                          overflow: hidden;
@@ -39,6 +39,35 @@
                      .addRecordBtn:hover {
                          background-color: #1e7e34;
                      }
+                     @media (max-width: 430px) {
+                         #viewDiv {
+                             border-width: 0;
+                             box-shadow: none;
+                         }
+                         .addRecordBtn {
+                             top: auto;
+                             right: calc(env(safe-area-inset-right) + 12px);
+                             bottom: calc(env(safe-area-inset-bottom) + 12px);
+                             border-radius: 12px;
+                             padding: 12px 16px;
+                             font-size: 16px;
+                             line-height: 1.2;
+                             min-height: 44px;
+                             min-width: 120px;
+                             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+                         }
+                         .esri-ui-top-left {
+                             top: calc(env(safe-area-inset-top) + 8px) !important;
+                             left: calc(env(safe-area-inset-left) + 8px) !important;
+                         }
+                         .esri-ui-top-right {
+                             top: calc(env(safe-area-inset-top) + 8px) !important;
+                             right: calc(env(safe-area-inset-right) + 8px) !important;
+                         }
+                         .esri-search {
+                             width: min(74vw, 300px);
+                         }
+                     }
                      @media (min-width: 768px) and (max-width: 1024px) {
                          html, body, #viewDiv {
                              width: 100vw;
@@ -65,6 +94,7 @@
              require([ "esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Search", "esri/widgets/Search/SearchSource", "esri/widgets/Expand", "esri/widgets/Locate", "esri/layers/GeoJSONLayer", "esri/widgets/ScaleBar", "esri/Graphic" ], (esriConfig, Map, MapView, Search, SearchSource, Expand, Locate, GeoJSONLayer, ScaleBar, Graphic) => {
 
                  esriConfig.apiKey = "AAPTaLCDzfLzcE5Q2HXKI5_Lgvw..CNjEP7VVPjEGnk4qt9aaPgofWZzD10GpMc_xR3LTu-ChHMQ4GR3VXQ2X8loGdzm2mEeJWS8Om1XeZV8LwBWGBmYanviwgXGVofIltQGuY8moQcu05esmUrEJVl7MKM7ELL52FcOY79wftH8756erm335H4nkNaBKv-pqW2Czr6xRR7JyOtJOVS1lnSjTuyXChRYJaybmoQHS3T6ml_GJ5LmPA-Pqz80SYJNZHJTp9fh0-wMyEd26t5TzF7Ogr1Hf7za2Rz3ZpM84YeEa52sY-w..AT1_bryZT1WS";
+                const isPhoneLayout = window.matchMedia("(max-width: 430px)").matches;
                 const map = new Map({
                     basemap: "arcgis-topographic" // Basemap layer
                 });
@@ -72,7 +102,10 @@
                     container: "viewDiv", // Reference to the DOM node that will contain the view
                     map: map, // References the map object
                     center: [-0.186, 5.586], // longitude, latitude tuned to match screenshot view
-                    zoom: 14.2
+                    zoom: 14.2,
+                    padding: isPhoneLayout
+                        ? { top: 84, right: 8, bottom: 96, left: 8 }
+                        : { top: 0, right: 0, bottom: 0, left: 0 }
                 });
 
                 // Parcel layer from a local GeoJSON file.
@@ -139,8 +172,8 @@
                     view: view
                 });
                 view.ui.add(locateBtn, {
-                    position: "top-left",
-                    index: 1
+                    position: isPhoneLayout ? "top-right" : "top-left",
+                    index: isPhoneLayout ? 0 : 1
                 });
 
                 // Add a visible red point marker at the initial center
@@ -169,9 +202,11 @@
                     view: view,
                     unit: "metric"
                 });
-                view.ui.add(scalebar, {
-                    position: "bottom-left"
-                });
+                if (!isPhoneLayout) {
+                    view.ui.add(scalebar, {
+                        position: "bottom-left"
+                    });
+                }
 
                 // Listen for errors on the Locate button
                 locateBtn.on("locate-error", (event) => {
@@ -194,3 +229,5 @@
             <div id="viewDiv">
                 <a href="https://arcg.is/01zHv12" target="_blank" class="addRecordBtn">Add Record</a>
             </div>
+        </body>
+</html>
