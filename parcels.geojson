@@ -75,6 +75,46 @@
       "type": "Feature",
       "properties": {"parcel_id": "P-015", "owner": "Sample Parcel 15", "neighborhood": "Krowor", "parcel_size": "1.0 ha", "land_use": "Residential", "registration_date": "2023-07-30"},
       "geometry": {"type": "Polygon", "coordinates": [[[-0.1500, 5.5600], [-0.1485, 5.5600], [-0.1485, 5.5615], [-0.1500, 5.5615], [-0.1500, 5.5600]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"parcel_id": "P-016", "owner": "Alajo Parcel 1", "neighborhood": "Alajo", "parcel_size": "0.5 ha", "land_use": "Residential", "registration_date": "2022-08-11"},
+      "geometry": {"type": "Polygon", "coordinates": [[[-0.2224, 5.5854], [-0.2215, 5.5854], [-0.2215, 5.5863], [-0.2224, 5.5863], [-0.2224, 5.5854]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"parcel_id": "P-017", "owner": "Alajo Parcel 2", "neighborhood": "Alajo", "parcel_size": "0.6 ha", "land_use": "Mixed Use", "registration_date": "2021-02-19"},
+      "geometry": {"type": "Polygon", "coordinates": [[[-0.2208, 5.5839], [-0.2199, 5.5839], [-0.2199, 5.5848], [-0.2208, 5.5848], [-0.2208, 5.5839]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"parcel_id": "P-018", "owner": "Kotobabi Parcel 1", "neighborhood": "Kotobabi", "parcel_size": "0.4 ha", "land_use": "Residential", "registration_date": "2020-05-23"},
+      "geometry": {"type": "Polygon", "coordinates": [[[-0.2064, 5.5928], [-0.2055, 5.5928], [-0.2055, 5.5936], [-0.2064, 5.5936], [-0.2064, 5.5928]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"parcel_id": "P-019", "owner": "Kotobabi Parcel 2", "neighborhood": "Kotobabi", "parcel_size": "0.7 ha", "land_use": "Commercial", "registration_date": "2019-10-05"},
+      "geometry": {"type": "Polygon", "coordinates": [[[-0.2039, 5.5912], [-0.2030, 5.5912], [-0.2030, 5.5920], [-0.2039, 5.5920], [-0.2039, 5.5912]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"parcel_id": "P-020", "owner": "Mamobi Parcel 1", "neighborhood": "Mamobi", "parcel_size": "0.5 ha", "land_use": "Residential", "registration_date": "2023-01-30"},
+      "geometry": {"type": "Polygon", "coordinates": [[[-0.2110, 5.5728], [-0.2101, 5.5728], [-0.2101, 5.5736], [-0.2110, 5.5736], [-0.2110, 5.5728]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"parcel_id": "P-021", "owner": "Mamobi Parcel 2", "neighborhood": "Mamobi", "parcel_size": "0.6 ha", "land_use": "Mixed Use", "registration_date": "2022-06-14"},
+      "geometry": {"type": "Polygon", "coordinates": [[[-0.2093, 5.5742], [-0.2084, 5.5742], [-0.2084, 5.5750], [-0.2093, 5.5750], [-0.2093, 5.5742]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"parcel_id": "P-022", "owner": "Accra New Town Parcel 1", "neighborhood": "Accra New Town", "parcel_size": "0.5 ha", "land_use": "Residential", "registration_date": "2020-12-02"},
+      "geometry": {"type": "Polygon", "coordinates": [[[-0.2137, 5.5655], [-0.2128, 5.5655], [-0.2128, 5.5664], [-0.2137, 5.5664], [-0.2137, 5.5655]]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"parcel_id": "P-023", "owner": "Accra New Town Parcel 2", "neighborhood": "Accra New Town", "parcel_size": "0.8 ha", "land_use": "Commercial", "registration_date": "2018-03-27"},
+      "geometry": {"type": "Polygon", "coordinates": [[[-0.2119, 5.5639], [-0.2110, 5.5639], [-0.2110, 5.5648], [-0.2119, 5.5648], [-0.2119, 5.5639]]]}
     }
   ]
 }
