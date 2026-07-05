@@ -106,12 +106,12 @@ function ArcGISMap() {
       'esri/widgets/Search',
       'esri/widgets/Search/SearchSource',
       'esri/widgets/Expand',
-      'esri/widgets/BasemapToggle',
+      'esri/widgets/BasemapGallery',
       'esri/layers/GeoJSONLayer'
     ], {
       css: true
     })
-      .then(([esriConfig, Map, MapView, Search, SearchSource, Expand, BasemapToggle, GeoJSONLayer]) => {
+      .then(([esriConfig, Map, MapView, Search, SearchSource, Expand, BasemapGallery, GeoJSONLayer]) => {
         if (cancelled || !mapRef.current) return;
 
         esriConfig.apiKey = import.meta.env.VITE_ARCGIS_API_KEY || '';
@@ -170,14 +170,13 @@ function ArcGISMap() {
 
         view.ui.add(searchExpand, 'top-right');
 
-        const basemapToggle = new BasemapToggle({
-          view,
-          nextBasemap: 'satellite'
+        const basemapGallery = new BasemapGallery({
+          view
         });
 
         const basemapExpand = new Expand({
           view,
-          content: basemapToggle,
+          content: basemapGallery,
           expandIconClass: 'esri-icon-basemap'
         });
 
