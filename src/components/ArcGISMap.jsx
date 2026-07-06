@@ -103,14 +103,13 @@ function ArcGISMap() {
       'esri/config',
       'esri/Map',
       'esri/views/MapView',
-      'esri/widgets/Search',
-      'esri/widgets/Search/SearchSource',
       'esri/widgets/Expand',
+      'esri/widgets/BasemapGallery',
       'esri/layers/GeoJSONLayer'
     ], {
       css: true
     })
-      .then(([esriConfig, Map, MapView, Search, SearchSource, Expand, GeoJSONLayer]) => {
+      .then(([esriConfig, Map, MapView, Expand, BasemapGallery, GeoJSONLayer]) => {
         if (cancelled || !mapRef.current) return;
 
         esriConfig.apiKey = import.meta.env.VITE_ARCGIS_API_KEY || '';
@@ -125,7 +124,7 @@ function ArcGISMap() {
           center: GHANA_CENTER,
           zoom: 13,
           ui: {
-            components: ['attribution']
+            components: ['attribution', 'zoom']
           }
         });
 
@@ -146,28 +145,18 @@ function ArcGISMap() {
 
         map.add(parcelLayer);
 
-        const parcelSearchSource = new SearchSource({
-          layer: parcelLayer,
-          searchFields: ['parcel_id', 'owner'],
-          displayField: 'parcel_id',
-          exactMatch: false,
-          outFields: ['*'],
-          name: 'Parcels',
-          placeholder: 'Search parcel ID or owner'
+        const basemapGallery = new BasemapGallery({
+          view
         });
 
-        const search = new Search({
+        const basemapExpand = new Expand({
           view,
-          sources: [parcelSearchSource]
+          content: basemapGallery,
+          expandIconClass: 'esri-icon-layer-list',
+          expanded: false
         });
 
-        const searchExpand = new Expand({
-          view,
-          content: search,
-          expandIcon: 'search'
-        });
-
-        view.ui.add(searchExpand, 'top-right');
+        view.ui.add(basemapExpand, 'bottom-right');
 
         return () => {
           view.destroy();
