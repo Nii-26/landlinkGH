@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { loadModules } from 'esri-loader';
 
 const GHANA_CENTER = [-1.0232, 7.9465];
-const PARCELS_URL = '/parcels.geojson';
+const PARCELS_URL = `${import.meta.env.BASE_URL}parcels.geojson`;
 
 const parcelRenderer = {
   type: 'unique-value',
