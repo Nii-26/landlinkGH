@@ -275,7 +275,9 @@
                 // Create the Search widget and bind it to the parcel layer.
                 const searchWidget = new Search({
                     view: view,
-                    sources: [parcelSearchSource]
+                    includeDefaultSources: true,
+                    sources: [parcelSearchSource],
+                    allPlaceholder: "Search address, parcel ID, or owner"
                 });
 
                 // Wrap the search widget in the Expand widget
@@ -287,7 +289,7 @@
 
                 // Add the expand widget to the view
                 view.ui.add(searchExpand, {
-                    position: "top-left",
+                    position: "bottom-right",
                     index: 0
                 });
 
