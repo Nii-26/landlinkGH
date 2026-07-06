@@ -1,473 +1,384 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
-    <title>LandlinkGH</title>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
-    <style>
-      :root {
-        --hud-ink: #1e6b65;
-        --hud-glass: rgba(249, 253, 252, 0.9);
-        --hud-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
-      }
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+        <title>LandlinkGH</title>
 
-      html,
-      body,
-      #viewDiv {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-      }
+                <style>
+                     html, body, #viewDiv {
+                         width: 100vw;
+                         height: 100dvh;
+                         margin: 0;
+                         padding: 0;
+                         overflow: hidden;
+                     }
+                     html, body {
+                         background: #fff;
+                     }
+                     #viewDiv {
+                         position: relative;
+                         box-sizing: border-box;
+                         border: 6px solid #2f2f2f;
+                         box-shadow: 0 0 0 6px #ffffff inset;
+                     }
+                     .floating-logo {
+                         position: fixed;
+                         top: 14px;
+                         left: 50%;
+                         transform: translateX(-50%);
+                         z-index: 30;
+                         pointer-events: none;
+                         display: inline-flex;
+                         align-items: center;
+                         gap: 4px;
+                         padding: 8px 12px;
+                         border-radius: 14px;
+                         background: rgba(255, 255, 255, 0.84);
+                         backdrop-filter: blur(4px);
+                         -webkit-backdrop-filter: blur(4px);
+                         box-shadow: 0 10px 20px rgba(10, 44, 41, 0.2);
+                     }
+                     .floating-logo .logo-char {
+                         display: inline-flex;
+                         align-items: center;
+                         justify-content: center;
+                         min-width: 22px;
+                         height: 30px;
+                         padding: 0 4px;
+                         border-radius: 4px;
+                         background: #f5fbfa;
+                         color: #0c6b65;
+                         font-size: 22px;
+                         font-weight: 800;
+                         line-height: 1;
+                         letter-spacing: 0.02em;
+                         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+                     }
+                     .addRecordBtn {
+                         position: absolute;
+                         z-index: 10;
+                         top: 10px;
+                         right: 10px;
+                         background-color: #28a745;
+                         color: white;
+                         padding: 8px 16px;
+                         border: none;
+                         border-radius: 4px;
+                         font-size: 14px;
+                         cursor: pointer;
+                         text-decoration: none;
+                     }
+                     .addRecordBtn:hover {
+                         background-color: #1e7e34;
+                     }
+                     @media (max-width: 430px) {
+                         .floating-logo {
+                             top: calc(env(safe-area-inset-top) + 6px);
+                             padding: 6px 8px;
+                             gap: 2px;
+                             border-radius: 10px;
+                         }
+                         .floating-logo .logo-char {
+                             min-width: 18px;
+                             height: 26px;
+                             font-size: 18px;
+                             padding: 0 2px;
+                         }
+                         #viewDiv {
+                             border-width: 0;
+                             box-shadow: none;
+                         }
+                         .addRecordBtn {
+                             top: auto;
+                             right: calc(env(safe-area-inset-right) + 12px);
+                             bottom: calc(env(safe-area-inset-bottom) + 12px);
+                             border-radius: 12px;
+                             padding: 12px 16px;
+                             font-size: 16px;
+                             line-height: 1.2;
+                             min-height: 44px;
+                             min-width: 120px;
+                             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+                         }
+                         .esri-ui-top-left {
+                             top: calc(env(safe-area-inset-top) + 8px) !important;
+                             left: calc(env(safe-area-inset-left) + 8px) !important;
+                         }
+                         .esri-ui-top-right {
+                             top: calc(env(safe-area-inset-top) + 8px) !important;
+                             right: calc(env(safe-area-inset-right) + 8px) !important;
+                         }
+                         .esri-search {
+                             width: min(74vw, 300px);
+                         }
+                     }
+                     @media (min-width: 768px) and (max-width: 1024px) {
+                         html, body, #viewDiv {
+                             width: 100vw;
+                             height: 100vh;
+                             margin: 0;
+                             padding: 0;
+                             overflow: hidden;
+                         }
+                         #viewDiv {
+                             border-width: 4px;
+                             box-shadow: 0 0 0 4px #ffffff inset;
+                         }
+                         .addRecordBtn {
+                             top: 16px;
+                             right: 16px;
+                             padding: 10px 18px;
+                             font-size: 16px;
+                         }
+                     }
+                </style>
+        <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
+        <script src="https://js.arcgis.com/4.26/"></script>
+           <script>
+               require([ "esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Search", "esri/widgets/Search/SearchSource", "esri/widgets/Expand", "esri/widgets/Locate", "esri/layers/GeoJSONLayer", "esri/widgets/ScaleBar", "esri/Graphic", "esri/widgets/BasemapGallery" ], (esriConfig, Map, MapView, Search, SearchSource, Expand, Locate, GeoJSONLayer, ScaleBar, Graphic, BasemapGallery) => {
 
-      body {
-        font-family: 'Avenir Next', 'Segoe UI', sans-serif;
-        background: #0b2d2a;
-      }
+                 esriConfig.apiKey = "AAPTaLCDzfLzcE5Q2HXKI5_Lgvw..CNjEP7VVPjEGnk4qt9aaPgofWZzD10GpMc_xR3LTu-ChHMQ4GR3VXQ2X8loGdzm2mEeJWS8Om1XeZV8LwBWGBmYanviwgXGVofIltQGuY8moQcu05esmUrEJVl7MKM7ELL52FcOY79wftH8756erm335H4nkNaBKv-pqW2Czr6xRR7JyOtJOVS1lnSjTuyXChRYJaybmoQHS3T6ml_GJ5LmPA-Pqz80SYJNZHJTp9fh0-wMyEd26t5TzF7Ogr1Hf7za2Rz3ZpM84YeEa52sY-w..AT1_bryZT1WS";
+                const isPhoneLayout = window.matchMedia("(max-width: 430px)").matches;
+                const map = new Map({
+                    basemap: "arcgis-topographic" // Basemap layer
+                });
+                const view = new MapView({
+                    container: "viewDiv", // Reference to the DOM node that will contain the view
+                    map: map, // References the map object
+                    center: [-0.186, 5.586], // longitude, latitude tuned to match screenshot view
+                    zoom: 14.2,
+                    padding: isPhoneLayout
+                        ? { top: 84, right: 8, bottom: 96, left: 8 }
+                        : { top: 0, right: 0, bottom: 0, left: 0 }
+                });
 
-      #viewDiv {
-        position: fixed;
-        inset: 0;
-      }
+                const parcelRenderer = {
+                    type: "unique-value",
+                    field: "land_use",
+                    defaultLabel: "Other land use",
+                    defaultSymbol: {
+                        type: "simple-fill",
+                        color: [150, 150, 150, 0.22],
+                        outline: {
+                            color: [90, 90, 90, 0.95],
+                            width: 1.25
+                        }
+                    },
+                    uniqueValueInfos: [
+                        {
+                            value: "Residential",
+                            label: "Residential",
+                            symbol: {
+                                type: "simple-fill",
+                                color: [76, 175, 80, 0.3],
+                                outline: {
+                                    color: [46, 125, 50, 1],
+                                    width: 1.5
+                                }
+                            }
+                        },
+                        {
+                            value: "Agricultural",
+                            label: "Agricultural",
+                            symbol: {
+                                type: "simple-fill",
+                                color: [139, 195, 74, 0.3],
+                                outline: {
+                                    color: [104, 159, 56, 1],
+                                    width: 1.5
+                                }
+                            }
+                        },
+                        {
+                            value: "Commercial",
+                            label: "Commercial",
+                            symbol: {
+                                type: "simple-fill",
+                                color: [33, 150, 243, 0.3],
+                                outline: {
+                                    color: [25, 118, 210, 1],
+                                    width: 1.5
+                                }
+                            }
+                        },
+                        {
+                            value: "Mixed Use",
+                            label: "Mixed Use",
+                            symbol: {
+                                type: "simple-fill",
+                                color: [255, 152, 0, 0.3],
+                                outline: {
+                                    color: [230, 81, 0, 1],
+                                    width: 1.5
+                                }
+                            }
+                        },
+                        {
+                            value: "Institutional",
+                            label: "Institutional",
+                            symbol: {
+                                type: "simple-fill",
+                                color: [156, 39, 176, 0.3],
+                                outline: {
+                                    color: [106, 27, 154, 1],
+                                    width: 1.5
+                                }
+                            }
+                        },
+                        {
+                            value: "Industrial",
+                            label: "Industrial",
+                            symbol: {
+                                type: "simple-fill",
+                                color: [96, 125, 139, 0.3],
+                                outline: {
+                                    color: [69, 90, 100, 1],
+                                    width: 1.5
+                                }
+                            }
+                        }
+                    ]
+                };
 
-      .hud-layer {
-        position: fixed;
-        inset: 0;
-        z-index: 20;
-        pointer-events: none;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: max(14px, env(safe-area-inset-top)) 12px max(16px, env(safe-area-inset-bottom));
-      }
+                // Parcel layer from a local GeoJSON file.
+                const parcelLayer = new GeoJSONLayer({
+                    url: "./parcels.geojson",
+                    title: "Parcel Layer",
+                    renderer: parcelRenderer,
+                    popupTemplate: {
+                        title: "{parcel_id}",
+                        content: [
+                            {
+                                type: "text",
+                                text: "<b>Owner Name:</b> {owner}<br/><b>Parcel Size:</b> {parcel_size}<br/><b>Land Use:</b> {land_use}<br/><b>Registration Date:</b> {registration_date}"
+                            }
+                        ]
+                    }
+                });
+                map.add(parcelLayer);
 
-      .top-strip {
-        width: 100%;
-        display: grid;
-        grid-template-columns: 54px 1fr 54px;
-        align-items: center;
-        gap: 10px;
-      }
+                // Keep startup zoom fixed to match the desired map opening view.
 
-      .icon-btn {
-        width: 54px;
-        height: 54px;
-        pointer-events: auto;
-        border: 0;
-        border-radius: 14px;
-        background: rgba(12, 61, 57, 0.58);
-        color: #fff;
-        box-shadow: var(--hud-shadow);
-        position: relative;
-      }
+                // Create a parcel search source that searches by Parcel ID or Owner Name.
+                const parcelSearchSource = new SearchSource({
+                    layer: parcelLayer,
+                    searchFields: ["parcel_id", "owner"],
+                    displayField: "parcel_id",
+                    exactMatch: false,
+                    outFields: ["*"],
+                    name: "Parcels",
+                    placeholder: "Search parcel ID or owner"
+                });
 
-      .menu-lines {
-        width: 24px;
-        height: 18px;
-        margin: auto;
-        background:
-          linear-gradient(#fff, #fff) 0 0 / 100% 3px no-repeat,
-          linear-gradient(#fff, #fff) 0 50% / 100% 3px no-repeat,
-          linear-gradient(#fff, #fff) 0 100% / 100% 3px no-repeat;
-      }
+                // Create the Search widget and bind it to the parcel layer.
+                const searchWidget = new Search({
+                    view: view,
+                    sources: [parcelSearchSource]
+                });
 
-      .search-icon {
-        width: 19px;
-        height: 19px;
-        margin: auto;
-        border: 3px solid #fff;
-        border-radius: 50%;
-        position: relative;
-      }
+                // Wrap the search widget in the Expand widget
+                const searchExpand = new Expand({
+                    view: view,
+                    content: searchWidget,
+                    expandIcon: "search"
+                });
 
-      .search-icon::after {
-        content: '';
-        position: absolute;
-        right: -9px;
-        bottom: -8px;
-        width: 10px;
-        height: 3px;
-        background: #fff;
-        border-radius: 2px;
-        transform: rotate(45deg);
-      }
+                // Add the expand widget to the view
+                view.ui.add(searchExpand, {
+                    position: "top-left",
+                    index: 0
+                });
 
-      .wordmark {
-        display: flex;
-        justify-content: center;
-        gap: 4px;
-        flex-wrap: wrap;
-      }
+                const basemapGallery = new BasemapGallery({
+                    view: view
+                });
 
-      .tile {
-        min-width: 27px;
-        height: 40px;
-        padding: 0 3px;
-        border-radius: 4px;
-        background: var(--hud-glass);
-        box-shadow: 0 8px 20px rgba(14, 58, 55, 0.2);
-        color: var(--hud-ink);
-        font-weight: 800;
-        letter-spacing: 0.05em;
-        font-size: 1.7rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
+                const basemapExpand = new Expand({
+                    view: view,
+                    content: basemapGallery,
+                    expandIconClass: "esri-icon-basemap",
+                    expanded: false
+                });
 
-      .location-pill {
-        margin-top: 12px;
-        pointer-events: auto;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        background: var(--hud-glass);
-        border-radius: 999px;
-        padding: 10px 24px;
-        box-shadow: var(--hud-shadow);
-        color: var(--hud-ink);
-        font-size: clamp(1.2rem, 2.8vw, 1.55rem);
-      }
+                view.ui.add(basemapExpand, {
+                    position: isPhoneLayout ? "top-right" : "top-left",
+                    index: isPhoneLayout ? 1 : 2
+                });
 
-      .pill-dot {
-        width: 27px;
-        height: 27px;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: #1f756e;
-        color: #f0fffc;
-        font-family: Georgia, serif;
-        font-weight: 700;
-      }
+                // Create the Locate widget and add it to the view
+                const locateBtn = new Locate({
+                    view: view
+                });
+                view.ui.add(locateBtn, {
+                    position: isPhoneLayout ? "top-right" : "top-left",
+                    index: isPhoneLayout ? 0 : 1
+                });
 
-      .north-arrow {
-        position: absolute;
-        top: 220px;
-        right: 44px;
-        width: 0;
-        height: 0;
-        border-left: 14px solid transparent;
-        border-right: 14px solid transparent;
-        border-bottom: 24px solid #d5f700;
-        transform: rotate(42deg);
-        filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
-      }
+                // Add a visible red point marker at the initial center
+                const point = {
+                    type: "point",
+                    longitude: -0.205,
+                    latitude: 5.6037
+                };
+                const markerSymbol = {
+                    type: "simple-marker",
+                    color: "red",
+                    size: "12px",
+                    outline: {
+                        color: "#ffffff",
+                        width: 1
+                    }
+                };
+                const pointGraphic = new Graphic({
+                    geometry: point,
+                    symbol: markerSymbol
+                });
+                view.graphics.add(pointGraphic);
 
-      .center-dot {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 36px;
-        height: 36px;
-        margin-left: -18px;
-        margin-top: -18px;
-        border-radius: 50%;
-        border: 4px solid rgba(71, 91, 37, 0.75);
-        background: #d6fa09;
-        box-shadow: 0 0 0 2px rgba(77, 95, 42, 0.45);
-      }
+                // Add a scale bar to match the screenshot layout
+                const scalebar = new ScaleBar({
+                    view: view,
+                    unit: "metric"
+                });
+                if (!isPhoneLayout) {
+                    view.ui.add(scalebar, {
+                        position: "bottom-left"
+                    });
+                }
 
-      .dock {
-        position: absolute;
-        right: 14px;
-        bottom: max(84px, calc(env(safe-area-inset-bottom) + 34px));
-        width: 86px;
-        background: rgba(255, 255, 255, 0.92);
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: var(--hud-shadow);
-        pointer-events: auto;
-      }
+                // Listen for errors on the Locate button
+                locateBtn.on("locate-error", (event) => {
+                    console.error("Locate Widget Error:", event.error);
+                    alert("Unable to find your location. Please check your phone's privacy settings or ensure your GPS signal is strong.");
+                });
 
-      .dock button {
-        width: 100%;
-        height: 88px;
-        border: 0;
-        background: transparent;
-        color: #2c7670;
-        font-size: 2rem;
-      }
+                // Catch errors when the parcel layer fails to load.
+                if (parcelLayer && parcelLayer.load) {
+                    parcelLayer.load().catch((error) => {
+                        console.error("Parcel layer failed to load:", error);
+                        alert("Notice: The parcel layer is temporarily unavailable.");
+                    });
+                }
 
-      .dock button + button {
-        border-top: 1px solid rgba(0, 0, 0, 0.08);
-      }
-
-      .info-btn {
-        position: absolute;
-        left: 20px;
-        bottom: max(18px, calc(env(safe-area-inset-bottom) + 2px));
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        border: 2px solid #117cc2;
-        background: rgba(245, 251, 255, 0.92);
-        color: #117cc2;
-        font-size: 1.7rem;
-        font-family: Georgia, serif;
-        pointer-events: auto;
-      }
-
-      .panel {
-        position: absolute;
-        right: 108px;
-        width: min(320px, calc(100vw - 128px));
-        max-height: 48vh;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: var(--hud-shadow);
-        background: rgba(255, 255, 255, 0.97);
-        opacity: 0;
-        pointer-events: none;
-        transform: translateX(10px);
-        transition: opacity 180ms ease, transform 180ms ease;
-      }
-
-      .panel.open {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateX(0);
-      }
-
-      #searchPanel {
-        top: 102px;
-      }
-
-      #layersPanel {
-        bottom: max(186px, calc(env(safe-area-inset-bottom) + 136px));
-      }
-
-      .panel .esri-widget,
-      .panel .esri-search,
-      .panel .esri-basemap-gallery {
-        width: 100% !important;
-      }
-
-      .esri-ui {
-        display: none;
-      }
-
-      @media (min-width: 760px) {
-        .hud-layer {
-          padding-left: 20px;
-          padding-right: 20px;
-        }
-
-        .top-strip {
-          max-width: 840px;
-          margin: 0 auto;
-        }
-
-        .tile {
-          min-width: 36px;
-          height: 50px;
-          font-size: 2.1rem;
-        }
-
-        .location-pill {
-          margin-top: 16px;
-          font-size: 1.7rem;
-        }
-
-        .panel {
-          width: 360px;
-        }
-      }
-    </style>
-    <script src="https://js.arcgis.com/4.26/"></script>
-    <script>
-      require([
-        'esri/config',
-        'esri/Map',
-        'esri/views/MapView',
-        'esri/widgets/Search',
-        'esri/widgets/Search/SearchSource',
-        'esri/widgets/Locate',
-        'esri/layers/GeoJSONLayer',
-        'esri/widgets/BasemapGallery',
-        'esri/Graphic'
-      ], function (esriConfig, Map, MapView, Search, SearchSource, Locate, GeoJSONLayer, BasemapGallery, Graphic) {
-        esriConfig.apiKey =
-          'AAPTaLCDzfLzcE5Q2HXKI5_Lgvw..CNjEP7VVPjEGnk4qt9aaPgofWZzD10GpMc_xR3LTu-ChHMQ4GR3VXQ2X8loGdzm2mEeJWS8Om1XeZV8LwBWGBmYanviwgXGVofIltQGuY8moQcu05esmUrEJVl7MKM7ELL52FcOY79wftH8756erm335H4nkNaBKv-pqW2Czr6xRR7JyOtJOVS1lnSjTuyXChRYJaybmoQHS3T6ml_GJ5LmPA-Pqz80SYJNZHJTp9fh0-wMyEd26t5TzF7Ogr1Hf7za2Rz3ZpM84YeEa52sY-w..AT1_bryZT1WS';
-
-        const map = new Map({
-          basemap: 'satellite'
-        });
-
-        const view = new MapView({
-          container: 'viewDiv',
-          map: map,
-          center: [-0.186, 5.586],
-          zoom: 19,
-          ui: {
-            components: ['attribution']
-          }
-        });
-
-        const parcelLayer = new GeoJSONLayer({
-          url: './parcels.geojson',
-          title: 'Parcel Layer',
-          renderer: {
-            type: 'simple',
-            symbol: {
-              type: 'simple-fill',
-              color: [30, 80, 35, 0.12],
-              outline: {
-                color: [16, 48, 20, 0.65],
-                width: 1
-              }
-            }
-          },
-          popupTemplate: {
-            title: '{parcel_id}',
-            content: [
-              {
-                type: 'text',
-                text: '<b>Owner Name:</b> {owner}<br/><b>Parcel Size:</b> {parcel_size}<br/><b>Land Use:</b> {land_use}<br/><b>Registration Date:</b> {registration_date}'
-              }
-            ]
-          }
-        });
-
-        map.add(parcelLayer);
-
-        const parcelSearchSource = new SearchSource({
-          layer: parcelLayer,
-          searchFields: ['parcel_id', 'owner'],
-          displayField: 'parcel_id',
-          exactMatch: false,
-          outFields: ['*'],
-          name: 'Parcels',
-          placeholder: 'Search parcel ID or owner'
-        });
-
-        const searchWidget = new Search({
-          view: view,
-          sources: [parcelSearchSource],
-          container: 'searchPanel'
-        });
-
-        const basemapGallery = new BasemapGallery({
-          view: view,
-          container: 'layersPanel'
-        });
-
-        const locateWidget = new Locate({ view: view });
-
-        const marker = new Graphic({
-          geometry: {
-            type: 'point',
-            longitude: -0.205,
-            latitude: 5.6037
-          },
-          symbol: {
-            type: 'simple-marker',
-            color: [214, 250, 9, 1],
-            size: '14px',
-            outline: {
-              color: [71, 91, 37, 0.8],
-              width: 2
-            }
-          }
-        });
-        view.graphics.add(marker);
-
-        const searchPanel = document.getElementById('searchPanel');
-        const layersPanel = document.getElementById('layersPanel');
-        const searchToggle = document.getElementById('searchToggle');
-        const layersToggle = document.getElementById('layersToggle');
-        const locateAction = document.getElementById('locateAction');
-
-        function closePanels() {
-          searchPanel.classList.remove('open');
-          layersPanel.classList.remove('open');
-        }
-
-        searchToggle.addEventListener('click', function () {
-          const willOpen = !searchPanel.classList.contains('open');
-          closePanels();
-          if (willOpen) {
-            searchPanel.classList.add('open');
-          }
-        });
-
-        layersToggle.addEventListener('click', function () {
-          const willOpen = !layersPanel.classList.contains('open');
-          closePanels();
-          if (willOpen) {
-            layersPanel.classList.add('open');
-          }
-        });
-
-        locateAction.addEventListener('click', function () {
-          locateWidget.locate();
-        });
-
-        view.on('click', function () {
-          closePanels();
-        });
-
-        parcelLayer.load().catch(function (error) {
-          console.error('Parcel layer failed to load:', error);
-        });
-
-        locateWidget.on('locate-error', function (event) {
-          console.error('Locate Widget Error:', event.error);
-          alert("Unable to find your location. Please check your phone's privacy settings or ensure your GPS signal is strong.");
-        });
-
-        window.addEventListener('resize', closePanels);
-      });
-    </script>
-  </head>
-  <body>
-    <div id="viewDiv"></div>
-
-    <div class="hud-layer">
-      <div class="top-strip">
-        <button id="menuToggle" class="icon-btn" type="button" aria-label="Menu">
-          <div class="menu-lines"></div>
-        </button>
-
-        <div class="wordmark" aria-label="LandlinkGH">
-          <span class="tile">L</span>
-          <span class="tile">A</span>
-          <span class="tile">N</span>
-          <span class="tile">D</span>
-          <span class="tile">L</span>
-          <span class="tile">I</span>
-          <span class="tile">N</span>
-          <span class="tile">K</span>
-          <span class="tile">G</span>
-          <span class="tile">H</span>
-        </div>
-
-        <button id="searchToggle" class="icon-btn" type="button" aria-label="Search">
-          <div class="search-icon"></div>
-        </button>
-      </div>
-
-      <div class="location-pill" role="status" aria-live="polite">
-        <span class="pill-dot">i</span>
-        <span>Accra, Ghana</span>
-      </div>
-
-      <div class="north-arrow" aria-hidden="true"></div>
-      <div class="center-dot" aria-hidden="true"></div>
-
-      <div class="dock" role="toolbar" aria-label="Map tools">
-        <button id="locateAction" type="button" aria-label="Locate me">⌖</button>
-        <button id="favoriteAction" type="button" aria-label="Favorites">★</button>
-        <button id="layersToggle" type="button" aria-label="Basemaps">▤</button>
-      </div>
-
-      <button class="info-btn" type="button" aria-label="Information">i</button>
-
-      <div id="searchPanel" class="panel" aria-label="Search panel"></div>
-      <div id="layersPanel" class="panel" aria-label="Basemap panel"></div>
-    </div>
-  </body>
+            });
+       </script>
+        </head>
+        <body>
+            <div class="floating-logo" aria-label="LANDLINKGH logo">
+                <span class="logo-char">L</span>
+                <span class="logo-char">A</span>
+                <span class="logo-char">N</span>
+                <span class="logo-char">D</span>
+                <span class="logo-char">L</span>
+                <span class="logo-char">I</span>
+                <span class="logo-char">N</span>
+                <span class="logo-char">K</span>
+                <span class="logo-char">G</span>
+                <span class="logo-char">H</span>
+            </div>
+            <div id="viewDiv">
+                <a href="https://arcg.is/01zHv12" target="_blank" class="addRecordBtn">Add Record</a>
+            </div>
+        </body>
 </html>

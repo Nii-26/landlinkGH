@@ -22,6 +22,39 @@
                          border: 6px solid #2f2f2f;
                          box-shadow: 0 0 0 6px #ffffff inset;
                      }
+                     .floating-logo {
+                         position: fixed;
+                         top: 14px;
+                         left: 50%;
+                         transform: translateX(-50%);
+                         z-index: 30;
+                         pointer-events: none;
+                         display: inline-flex;
+                         align-items: center;
+                         gap: 4px;
+                         padding: 8px 12px;
+                         border-radius: 14px;
+                         background: rgba(255, 255, 255, 0.84);
+                         backdrop-filter: blur(4px);
+                         -webkit-backdrop-filter: blur(4px);
+                         box-shadow: 0 10px 20px rgba(10, 44, 41, 0.2);
+                     }
+                     .floating-logo .logo-char {
+                         display: inline-flex;
+                         align-items: center;
+                         justify-content: center;
+                         min-width: 22px;
+                         height: 30px;
+                         padding: 0 4px;
+                         border-radius: 4px;
+                         background: #f5fbfa;
+                         color: #0c6b65;
+                         font-size: 22px;
+                         font-weight: 800;
+                         line-height: 1;
+                         letter-spacing: 0.02em;
+                         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+                     }
                      .addRecordBtn {
                          position: absolute;
                          z-index: 10;
@@ -40,6 +73,18 @@
                          background-color: #1e7e34;
                      }
                      @media (max-width: 430px) {
+                         .floating-logo {
+                             top: calc(env(safe-area-inset-top) + 6px);
+                             padding: 6px 8px;
+                             gap: 2px;
+                             border-radius: 10px;
+                         }
+                         .floating-logo .logo-char {
+                             min-width: 18px;
+                             height: 26px;
+                             font-size: 18px;
+                             padding: 0 2px;
+                         }
                          #viewDiv {
                              border-width: 0;
                              box-shadow: none;
@@ -320,6 +365,18 @@
        </script>
         </head>
         <body>
+            <div class="floating-logo" aria-label="LANDLINKGH logo">
+                <span class="logo-char">L</span>
+                <span class="logo-char">A</span>
+                <span class="logo-char">N</span>
+                <span class="logo-char">D</span>
+                <span class="logo-char">L</span>
+                <span class="logo-char">I</span>
+                <span class="logo-char">N</span>
+                <span class="logo-char">K</span>
+                <span class="logo-char">G</span>
+                <span class="logo-char">H</span>
+            </div>
             <div id="viewDiv">
                 <a href="https://arcg.is/01zHv12" target="_blank" class="addRecordBtn">Add Record</a>
             </div>
