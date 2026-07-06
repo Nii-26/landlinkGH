@@ -91,7 +91,7 @@
         <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
         <script src="https://js.arcgis.com/4.26/"></script>
            <script>
-               require([ "esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Search", "esri/widgets/Search/SearchSource", "esri/widgets/Expand", "esri/widgets/Locate", "esri/layers/GeoJSONLayer", "esri/widgets/ScaleBar", "esri/Graphic", "esri/widgets/BasemapGallery" ], (esriConfig, Map, MapView, Search, SearchSource, Expand, Locate, GeoJSONLayer, ScaleBar, Graphic, BasemapGallery) => {
+               require([ "esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Search", "esri/widgets/Search/SearchSource", "esri/widgets/Expand", "esri/widgets/Locate", "esri/layers/GeoJSONLayer", "esri/widgets/ScaleBar", "esri/Graphic" ], (esriConfig, Map, MapView, Search, SearchSource, Expand, Locate, GeoJSONLayer, ScaleBar, Graphic) => {
 
                  esriConfig.apiKey = "AAPTaLCDzfLzcE5Q2HXKI5_Lgvw..CNjEP7VVPjEGnk4qt9aaPgofWZzD10GpMc_xR3LTu-ChHMQ4GR3VXQ2X8loGdzm2mEeJWS8Om1XeZV8LwBWGBmYanviwgXGVofIltQGuY8moQcu05esmUrEJVl7MKM7ELL52FcOY79wftH8756erm335H4nkNaBKv-pqW2Czr6xRR7JyOtJOVS1lnSjTuyXChRYJaybmoQHS3T6ml_GJ5LmPA-Pqz80SYJNZHJTp9fh0-wMyEd26t5TzF7Ogr1Hf7za2Rz3ZpM84YeEa52sY-w..AT1_bryZT1WS";
                 const isPhoneLayout = window.matchMedia("(max-width: 430px)").matches;
@@ -243,21 +243,6 @@
                 view.ui.add(searchExpand, {
                     position: "top-left",
                     index: 0
-                });
-
-                const basemapGallery = new BasemapGallery({
-                    view: view
-                });
-
-                const basemapExpand = new Expand({
-                    view: view,
-                    content: basemapGallery,
-                    expandIconClass: "esri-icon-basemap"
-                });
-
-                view.ui.add(basemapExpand, {
-                    position: isPhoneLayout ? "top-right" : "top-left",
-                    index: isPhoneLayout ? 1 : 2
                 });
 
                 // Create the Locate widget and add it to the view
