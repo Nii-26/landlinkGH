@@ -85,6 +85,10 @@
                          transform: rotate(45deg);
                          margin: 3px auto 0;
                      }
+                     .esri-ui-top-right {
+                         top: 14px !important;
+                         right: calc(50% - 244px) !important;
+                     }
                      @media (max-width: 430px) {
                          .floating-logo {
                              top: calc(env(safe-area-inset-top) + 6px);
@@ -119,8 +123,8 @@
                              left: calc(env(safe-area-inset-left) + 8px) !important;
                          }
                          .esri-ui-top-right {
-                             top: calc(env(safe-area-inset-top) + 8px) !important;
-                             right: calc(env(safe-area-inset-right) + 8px) !important;
+                             top: calc(env(safe-area-inset-top) + 6px) !important;
+                             right: calc(50% - 170px) !important;
                          }
                          .esri-search {
                              width: min(74vw, 300px);
@@ -304,7 +308,7 @@
 
                 // Add the expand widget to the view
                 view.ui.add(searchExpand, {
-                    position: "bottom-right",
+                    position: "top-right",
                     index: 0
                 });
 
