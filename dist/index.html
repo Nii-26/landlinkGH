@@ -153,7 +153,7 @@
         <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
         <script src="https://js.arcgis.com/4.26/"></script>
            <script>
-               require([ "esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Search", "esri/widgets/Search/SearchSource", "esri/widgets/Expand", "esri/widgets/Locate", "esri/layers/GeoJSONLayer", "esri/widgets/ScaleBar", "esri/Graphic", "esri/widgets/BasemapGallery" ], (esriConfig, Map, MapView, Search, SearchSource, Expand, Locate, GeoJSONLayer, ScaleBar, Graphic, BasemapGallery) => {
+               require([ "esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Search", "esri/widgets/Search/SearchSource", "esri/widgets/Search/LocatorSearchSource", "esri/widgets/Expand", "esri/widgets/Locate", "esri/layers/GeoJSONLayer", "esri/widgets/ScaleBar", "esri/Graphic", "esri/widgets/BasemapGallery" ], (esriConfig, Map, MapView, Search, SearchSource, LocatorSearchSource, Expand, Locate, GeoJSONLayer, ScaleBar, Graphic, BasemapGallery) => {
 
                  esriConfig.apiKey = "AAPTaLCDzfLzcE5Q2HXKI5_Lgvw..CNjEP7VVPjEGnk4qt9aaPgofWZzD10GpMc_xR3LTu-ChHMQ4GR3VXQ2X8loGdzm2mEeJWS8Om1XeZV8LwBWGBmYanviwgXGVofIltQGuY8moQcu05esmUrEJVl7MKM7ELL52FcOY79wftH8756erm335H4nkNaBKv-pqW2Czr6xRR7JyOtJOVS1lnSjTuyXChRYJaybmoQHS3T6ml_GJ5LmPA-Pqz80SYJNZHJTp9fh0-wMyEd26t5TzF7Ogr1Hf7za2Rz3ZpM84YeEa52sY-w..AT1_bryZT1WS";
                 const isPhoneLayout = window.matchMedia("(max-width: 430px)").matches;
@@ -291,11 +291,21 @@
                     placeholder: "Search parcel ID or owner"
                 });
 
+                const addressSearchSource = new LocatorSearchSource({
+                    url: "https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer",
+                    name: "Address or place",
+                    placeholder: "Search address or place",
+                    singleLineFieldName: "SingleLine",
+                    maxResults: 6,
+                    maxSuggestions: 6,
+                    outFields: ["Addr_type", "Match_addr", "PlaceName"]
+                });
+
                 // Create the Search widget and bind it to the parcel layer.
                 const searchWidget = new Search({
                     view: view,
-                    includeDefaultSources: true,
-                    sources: [parcelSearchSource],
+                    includeDefaultSources: false,
+                    sources: [addressSearchSource, parcelSearchSource],
                     allPlaceholder: "Search address, parcel ID, or owner"
                 });
 
