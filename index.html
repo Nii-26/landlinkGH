@@ -299,15 +299,8 @@
                     allPlaceholder: "Search address, parcel ID, or owner"
                 });
 
-                // Wrap the search widget in the Expand widget
-                const searchExpand = new Expand({
-                    view: view,
-                    content: searchWidget,
-                    expandIcon: "search"
-                });
-
-                // Add the expand widget to the view
-                view.ui.add(searchExpand, {
+                // Add the search bar directly to the view.
+                view.ui.add(searchWidget, {
                     position: "top-right",
                     index: 0
                 });
